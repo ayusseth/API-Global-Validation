@@ -1,0 +1,55 @@
+package main.controller;
+
+import jakarta.validation.ConstraintViolationException;
+import main.exception.UserNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFound(UserNotFoundException ex) {
+        System.out.println(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    // Validation errors (@Valid on body)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidException ex) {
+        StringBuilder sb = new StringBuilder("Validation failed: ");
+        ex.getBindingResult().getFieldErrors()
+                .forEach(error -> sb.append(error.getField())
+                        .append(" - ").append(error.getDefaultMessage()).append("; "));
+        System.out.println(sb);
+        return ResponseEntity.ok(sb.toString()); // ✅ No 500
+    }
+
+    // Validation errors (@Validated on params)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolations(ConstraintViolationException ex) {
+        StringBuilder sb = new StringBuilder("Constraint violation: ");
+        ex.getConstraintViolations()
+                .forEach(v -> sb.append(v.getMessage()).append("; "));
+        System.out.println(sb);
+        return ResponseEntity.ok(sb.toString()); // ✅ No 500
+    }
+
+    // Duplicate entry / Unique constraint
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        System.out.println("Duplicate email detected");
+        return ResponseEntity.ok("Error: Duplicate email not allowed"); // ✅ No 500
+    }
+
+    // Catch-all
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleOtherExceptions(Exception ex) {
+        System.out.println("Unexpected error: " + ex.getMessage());
+        return ResponseEntity.ok("Error handled: " + ex.getMessage()); // ✅ No 500
+    }
+}
