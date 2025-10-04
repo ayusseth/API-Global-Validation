@@ -15,6 +15,7 @@ public class User {
     private int id;
     private String name;
 
+    @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "email must be a valid Gmail address")
     @Column(unique = true, nullable = false)
     private String mail;
