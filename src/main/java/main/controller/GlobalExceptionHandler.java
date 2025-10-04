@@ -46,10 +46,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok("Error: Duplicate email not allowed"); // ✅ No 500
     }
 
-    // Catch-all
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleOtherExceptions(Exception ex) {
-        System.out.println("Unexpected error: " + ex.getMessage());
-        return ResponseEntity.ok("Error handled: " + ex.getMessage()); // ✅ No 500
-    }
+    
 }
