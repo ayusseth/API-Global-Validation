@@ -70,8 +70,12 @@ public class UserServiceImpl implements UserService {
 
         if (userRepo.existsById(id)) {
             userRepo.deleteById(id);
-        } else {
-            throw new UserNotFoundException(id + " is not found for delete");
+            log.info("User is deleted with ID={}",id);
+        }
+        else {
+            log.error("User not Exist with ID={}",id);
+            throw new UserNotFoundException(id+" is not found for delete");
+
         }
     }
 }
