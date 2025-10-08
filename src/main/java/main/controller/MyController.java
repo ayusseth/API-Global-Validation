@@ -48,6 +48,7 @@ public class MyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        log.info("Received request to delete user with ID={}",id);
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body("deleted successfully");
     }
