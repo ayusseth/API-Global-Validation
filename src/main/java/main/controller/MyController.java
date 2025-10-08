@@ -1,6 +1,7 @@
 package main.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import main.entity.User;
 import main.exception.UserNotFoundException;
 import main.service.UserService;
