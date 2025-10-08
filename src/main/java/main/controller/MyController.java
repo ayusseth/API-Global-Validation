@@ -28,6 +28,7 @@ public class MyController {
 
     @GetMapping
     public List<User> getAllUser() {
+        log.info("Received request to fetch all User..");
         return userService.getAllUser();
     }
 
