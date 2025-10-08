@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int id) {
+        log.info("Searching for user with ID={}",id);
 
         if (userRepo.existsById(id)) {
             userRepo.deleteById(id);
