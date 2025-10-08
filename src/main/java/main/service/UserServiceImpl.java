@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         if (user.getMail() != null) {
             updateUser.setMail(user.getMail());
         }
+        log.info("User updated successfully with ID={}",id);
         return userRepo.save(updateUser);
     }
 
