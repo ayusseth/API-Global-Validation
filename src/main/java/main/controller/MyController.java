@@ -41,6 +41,7 @@ public class MyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        log.info("Received request to update user with ID={}",id);
         User newUser = userService.updateUser(id, user);
         return ResponseEntity.ok(newUser);
     }
