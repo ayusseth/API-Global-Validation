@@ -34,8 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(int id) {
-        return userRepo.findById(id);
+    public User getUser(int id) {
+        log.info("Fetching user with ID={}",id);
+        return userRepo.findById(id)
+                .orElseThrow(()-> {
+                    log.warn("user not Exist with ID={}", id);
+                    return new UserNotFoundException(id + " is not found");
+                });
     }
 
     @Override
