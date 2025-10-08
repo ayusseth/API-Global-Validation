@@ -34,7 +34,8 @@ public class MyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
-        User user = userService.getUser(id).orElseThrow(() -> new UserNotFoundException("this unique id " + id + " is not found"));
+        log.info("Received request to fetch user with ID={}",id);
+        User user = userService.getUser(id);
         return ResponseEntity.ok(user);
     }
 
