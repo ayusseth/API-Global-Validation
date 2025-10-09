@@ -21,6 +21,8 @@ public class GlobalExceptionHandler {
     // Validation errors (@Valid on body)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidException ex) {
+        log.error("Returning MethodArgumentNotValidException");
+
         StringBuilder sb = new StringBuilder("Validation failed: ");
         ex.getBindingResult().getFieldErrors()
                 .forEach(error -> sb.append(error.getField())
