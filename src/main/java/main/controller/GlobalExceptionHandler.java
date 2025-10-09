@@ -44,6 +44,8 @@ public class GlobalExceptionHandler {
     // Duplicate entry / Unique constraint
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        log.error("Returning DataIntegrityViolationException");
+
         System.out.println("Duplicate email detected");
         return ResponseEntity.ok("Error: Duplicate email not allowed"); // ✅ No 500
     }
