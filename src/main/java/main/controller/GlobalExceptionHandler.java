@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
                 .forEach(error -> sb.append(error.getField())
                         .append(" - ").append(error.getDefaultMessage()).append("; "));
         System.out.println(sb);
-        return ResponseEntity.ok(sb.toString()); // ✅ No 500
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
     }
 
     // Validation errors (@Validated on params)
