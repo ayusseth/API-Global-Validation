@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
