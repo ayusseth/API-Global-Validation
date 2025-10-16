@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
         log.error("Returning DataIntegrityViolationException");
 
         System.out.println("Duplicate email detected");
-        return ResponseEntity.ok("Error: Duplicate email not allowed"); // ✅ No 500
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Duplicate email not allowed"); // ✅ No 500
     }
 
     
