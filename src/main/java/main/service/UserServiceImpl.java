@@ -16,8 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepo userRepo;
+   private final UserRepo userRepo;
 
     @Override
     public User createUser(User user) {
