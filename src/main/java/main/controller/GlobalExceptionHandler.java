@@ -33,15 +33,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
     }
 
-    // Validation errors (@Validated on params)
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleConstraintViolations(ConstraintViolationException ex) {
-        StringBuilder sb = new StringBuilder("Constraint violation: ");
-        ex.getConstraintViolations()
-                .forEach(v -> sb.append(v.getMessage()).append("; "));
-        System.out.println(sb);
-        return ResponseEntity.ok(sb.toString()); // ✅ No 500
-    }
 
     // Duplicate entry / Unique constraint
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -49,8 +40,8 @@ public class GlobalExceptionHandler {
         log.error("Returning DataIntegrityViolationException");
 
         System.out.println("Duplicate email detected");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Duplicate email not allowed"); // ✅ No 500
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Duplicate email not allowed");
     }
 
-    
+
 }
